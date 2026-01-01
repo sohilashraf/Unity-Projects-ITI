@@ -3,59 +3,47 @@ using UnityEngine;
 public class PlayerMove : MonoBehaviour
 {
     public float speed = 5f;
+    public float jumpForce = 7f;
 
-    private float x;
-    private float y;
+    public Collider2D feetCollider;   
+    public LayerMask groundLayer;
 
-    private bool pressingButton;
+    private Rigidbody2D rb;
     private Animator anim;
-
-    private bool pressingJumpButton;
+    private float x;
+    private bool isGrounded;
 
     void Start()
     {
+        rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-
+        rb.freezeRotation = true;
     }
 
     void Update()
     {
-        x = Input.GetAxis("Horizontal");
-        y = Input.GetAxis("Vertical");
+        x = Input.GetAxisRaw("Horizontal");
 
+        // Ground check using feet collider
+        isGrounded = feetCollider.IsTouchingLayers(groundLayer);
 
-        pressingButton = Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D);
-        anim.SetBool("isRunning", pressingButton);
+        // Animations
+        anim.SetBool("isRunning", x != 0);
 
+        // Flip
+        if (x > 0) transform.localScale = new Vector3(1, 1, 1);
+        else if (x < 0) transform.localScale = new Vector3(-1, 1, 1);
 
-        pressingJumpButton = Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W);
-
-        if (pressingJumpButton)
+        // Jump
+        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W)) && isGrounded)
         {
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
             anim.SetTrigger("Jump");
         }
     }
 
     void FixedUpdate()
     {
-        if (pressingButton)
-        {
-            transform.Translate(new Vector3(x * speed * Time.fixedDeltaTime, 0f, 0f));
-
-            if (x > 0)
-                transform.localScale = new Vector3(1, 1, 1);
-            else if (x < 0)
-                transform.localScale = new Vector3(-1, 1, 1);
-        }
-
-        if (y > 0)
-        {
-            Vector3 jumpForce = new Vector3(0f, 7 * Time.fixedDeltaTime, 0f);
-            transform.position += jumpForce;
-        }
-
-
+        rb.linearVelocity = new Vector2(x * speed, rb.linearVelocity.y);
     }
-
-
 }

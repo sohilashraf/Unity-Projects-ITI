@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 834493815552883917}
   - component: {fileID: 8258981051889757753}
   - component: {fileID: 4478580995305071543}
-  - component: {fileID: 729179914715128170}
   - component: {fileID: 5837213266010300417}
   m_Layer: 0
   m_Name: Character
@@ -111,7 +110,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0.5
   m_Material: {fileID: 6200000, guid: c7dc2c15c24d9464f89fdd6699f35b4c, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
@@ -191,20 +190,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &729179914715128170
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5629447643545884417}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7affb1a8a761ab143b52c618610d9717, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerFollower
-  player: {fileID: 0}
-  offset: {x: 1, y: 2, z: -10}
 --- !u!114 &5837213266010300417
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -217,4 +202,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28407f2a153c4ef468ad48bd62f2723b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMove
-  speed: 2
+  speed: 4
